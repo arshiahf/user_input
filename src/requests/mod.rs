@@ -9,13 +9,12 @@ pub fn request_input() -> String
     let mut in_str = String::new();
     match i.read_line(&mut in_str)
     {
-        Ok(n) => {
-            println!("Input: {}", n);
-            println!("{}", in_str);
+        Ok(_n) => {
+            //println!("Input: {}", n);
         }
         //Err(error) => println!("Error: {}", error),
         _ => println!("Error"),
     }
-
+    println!("{}", in_str);
     in_str
 }
