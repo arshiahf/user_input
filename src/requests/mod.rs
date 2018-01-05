@@ -1,20 +1,22 @@
 use std::io::{self};
 use std::string::String;
+use std::process::{exit};
 
-pub fn request_input() -> String
+pub fn request_input(mut in_str:String) -> String
 {
     //let mut full_input = Vec::new();
 
     let i = io::stdin();
-    let mut in_str = String::new();
+    //let mut in_str = String::new();
     match i.read_line(&mut in_str)
     {
         Ok(_n) => {
-            //println!("Input: {}", n);
+            println!("{}", in_str);
+            return in_str
         }
-        //Err(error) => println!("Error: {}", error),
-        _ => println!("Error"),
+        Err(err) => {
+            eprintln!("Error: {:?}", err);
+            exit(1);
+        }
     }
-    println!("{}", in_str);
-    in_str
 }
