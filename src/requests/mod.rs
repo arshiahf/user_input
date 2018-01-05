@@ -1,7 +1,7 @@
 use std::io::{self};
 use std::string::String;
 
-fn request_input() -> String
+pub fn request_input() -> String
 {
     //let mut full_input = Vec::new();
 
