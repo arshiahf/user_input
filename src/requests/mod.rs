@@ -2,10 +2,10 @@ use std::io::{self};
 use std::string::String;
 use std::process::{exit};
 
-pub fn request_input(mut in_str:String)
+pub fn request_input(in_str:&mut String)
 {
     let i = io::stdin();
-    match i.read_line(&mut in_str)
+    match i.read_line(in_str)
     {
         Ok(_n) => {
         }
