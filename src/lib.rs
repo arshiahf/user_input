@@ -6,5 +6,5 @@ mod tests {
     }
 }
 
-pub mod prompt;
+pub mod requests;
 mod interpret;
