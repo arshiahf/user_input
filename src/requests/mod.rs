@@ -1,23 +1,29 @@
 use std::io::{stdin, stdout};
-use std::io::Write;
+use std::io::{BufWriter, Write};
 use std::string::String;
 use std::process::{exit};
 
-pub fn request_input(in_str:&mut String)
+fn flush_out(message: &[u8])
 {
-    let mut o = stdout();
+    let mut o = BufWriter::new(stdout());
+    match o.write(message)
+    {
+        _ => {}
+    }
+
+    match o.flush()
+    {
+        _ => {}
+    }
+}
+
+pub fn request_input(message: &[u8], in_str: &mut String)
+{
+    flush_out(message);
     let i = stdin();
     match i.read_line(in_str)
     {
         Ok(_) => {
-            match o.flush()
-            {
-                Ok(_) => {}
-                Err(err) => {
-                    eprintln!("{:?}", err);
-                    exit(1);
-                }
-            }
         }
         Err(err) => {
             eprintln!("Error: {:?}", err);
