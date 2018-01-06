@@ -3,10 +3,10 @@ use std::io::{BufWriter, Write};
 use std::string::String;
 use std::process::{exit};
 
-fn flush_out(message: &[u8])
+fn flush_out(message: String)
 {
     let mut o = BufWriter::new(stdout());
-    match o.write(message)
+    match o.write(&message.into_bytes())
     {
         _ => {}
     }
@@ -17,7 +17,7 @@ fn flush_out(message: &[u8])
     }
 }
 
-pub fn request_input(message: &[u8], in_str: &mut String)
+pub fn request_input(message: String, in_str: &mut String)
 {
     flush_out(message);
     let i = stdin();
