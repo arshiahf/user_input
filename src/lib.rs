@@ -7,4 +7,4 @@ mod tests {
 }
 
 pub mod requests;
-mod interpret;
+pub mod interpret;
