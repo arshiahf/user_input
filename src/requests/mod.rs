@@ -1,13 +1,23 @@
-use std::io::{self};
+use std::io::{stdin, stdout};
+use std::io::Write;
 use std::string::String;
 use std::process::{exit};
 
 pub fn request_input(in_str:&mut String)
 {
-    let i = io::stdin();
+    let mut o = stdout();
+    let i = stdin();
     match i.read_line(in_str)
     {
-        Ok(_n) => {
+        Ok(_) => {
+            match o.flush()
+            {
+                Ok(_) => {}
+                Err(err) => {
+                    eprintln!("{:?}", err);
+                    exit(1);
+                }
+            }
         }
         Err(err) => {
             eprintln!("Error: {:?}", err);
