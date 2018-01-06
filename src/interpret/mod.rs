@@ -1,4 +1,4 @@
-// Module allowing a string to be parsed into a generic vector
+// Module allowing a string to be parsed into a generic vector, throwing away anything not of type T
 
 use std::str::FromStr;
 
