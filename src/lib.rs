@@ -7,4 +7,4 @@ mod tests {
 }
 
 pub mod requests;
-pub mod interpret;
+pub(crate) mod interpret;
