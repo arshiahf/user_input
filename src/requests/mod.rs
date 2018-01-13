@@ -6,6 +6,7 @@ use std::io::{stdin, stdout};
 use std::io::{BufWriter, Write};
 use std::string::String;
 use std::process::{exit};
+use std::fs::{File, DirBuilder};
 
 // Places a desired message into the system buffer then flushes it to print it on screen
 fn flush_out(message: String)
@@ -54,4 +55,38 @@ pub fn request_input_to_vec<T>(message: &str, in_vec: &mut Vec<T>) where T: From
     }
 
     parse_string_to_vec(in_str, in_vec);
+}
+
+pub fn new_directory(root_dir:String, target:String)
+{
+    let mut builder = DirBuilder::new();
+    let path = root_dir.clone() + &target;
+    match builder.recursive(true).create(path.as_str())
+    {
+        Ok(_) => {}
+        Err(err) => {
+            eprintln!("{:?}", err);
+            exit(1);
+        }
+    }
+}
+
+pub fn new_files(root_dir:String, target_dir:String, mut file_names:Vec<String>)
+{
+    let path = root_dir.clone() + &target_dir.clone();
+    let mut file_name = file_names.pop();
+    let full_path = path.clone() + &file_name.clone().unwrap();
+    while file_name != None
+    {
+        match File::create(full_path.as_str())
+        {
+            Ok(_) => {
+                file_name = file_names.pop();
+            }
+            Err(err) => {
+                eprintln!("{:?}", err);
+                exit(1);
+            }
+        }
+    }
 }
