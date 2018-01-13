@@ -81,7 +81,10 @@ pub fn new_files(path:String, mut file_names:Vec<String>)
         {
             Ok(_) => {
                 file_name = file_names.pop();
-                full_path = path.clone() + &file_name.clone().unwrap();
+                if file_name != None
+                {
+                    full_path = path.clone() + &file_name.clone().unwrap();
+                }
             }
             Err(err) => {
                 eprintln!("{:?}", err);
