@@ -71,9 +71,8 @@ pub fn new_directory(root_dir:String, target:String)
     }
 }
 
-pub fn new_files(root_dir:String, target_dir:String, mut file_names:Vec<String>)
+pub fn new_files(path:String, mut file_names:Vec<String>)
 {
-    let path = root_dir.clone() + &target_dir.clone();
     let mut file_name = file_names.pop();
     let full_path = path.clone() + &file_name.clone().unwrap();
     while file_name != None
