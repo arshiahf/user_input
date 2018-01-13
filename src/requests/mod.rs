@@ -23,7 +23,10 @@ pub fn request_input_string(message: &str, in_str: &mut String)
     let i = stdin();
     match i.read_line(in_str)
     {
-        Ok(_) => {}
+        Ok(_) => {
+            in_str.pop();
+            in_str.pop();
+        }
         Err(err) => {
             eprintln!("Error: {:?}", err);
             exit(1);
@@ -40,7 +43,10 @@ pub fn request_input_to_vec<T>(message: &str, in_vec: &mut Vec<T>) where T: From
     let mut in_str:String = String::new();
     match i.read_line(&mut in_str)
     {
-        Ok(_) => {}
+        Ok(_) => {
+            in_str.pop();
+            in_str.pop();
+        }
         Err(err) => {
             eprintln!("Error: {:?}", err);
             exit(1);
