@@ -74,14 +74,14 @@ pub fn new_directory(root_dir:String, target:String)
 pub fn new_files(path:String, mut file_names:Vec<String>)
 {
     let mut file_name = file_names.pop();
-    let full_path = path.clone() + &file_name.clone().unwrap();
+    let mut full_path = path.clone() + &file_name.clone().unwrap();
     while file_name != None
     {
         match File::create(full_path.as_str())
         {
             Ok(_) => {
-                println!("{}", file_name.clone().unwrap());
                 file_name = file_names.pop();
+                full_path = path.clone() + &file_name.clone().unwrap();
             }
             Err(err) => {
                 eprintln!("{:?}", err);
