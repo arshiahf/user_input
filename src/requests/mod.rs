@@ -80,7 +80,7 @@ pub fn new_files(path:String, mut file_names:Vec<String>)
         match File::create(full_path.as_str())
         {
             Ok(_) => {
-                println!("{}", file_name);
+                println!("{}", file_name.clone().unwrap());
                 file_name = file_names.pop();
             }
             Err(err) => {
