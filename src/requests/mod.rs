@@ -16,7 +16,7 @@ fn flush_out(message: String)
     match o.flush(){_ => {}}
 }
 
-// Requests input and places it into a provided String
+// Requests command line input and places it into a provided String
 pub fn request_input_string(message: &str, in_str: &mut String)
 {
     let flushable = String::from(message);
@@ -35,7 +35,9 @@ pub fn request_input_string(message: &str, in_str: &mut String)
     }
 }
 
-// Requests input and places it into a provided Vector
+// Requests command line input and places it into a provided Vector
+/* Uses whitespace splitting for variable creation, making it so no variable may be more than
+ one word long */
 pub fn request_input_to_vec<T>(message: &str, in_vec: &mut Vec<T>) where T: FromStr
 {
     let flushable = String::from(message);
@@ -57,39 +59,44 @@ pub fn request_input_to_vec<T>(message: &str, in_vec: &mut Vec<T>) where T: From
     parse_string_to_vec(in_str, in_vec);
 }
 
-pub fn new_directory(root_dir:String, target:String)
+// Programmer-side function to create a series of files or directories from an input String Vector
+// Note: Single directories or files may be made using a one-item Vector
+pub fn new_directories_files(root_dir:String, names:Vec<String>, input_type:String)
 {
-    let mut builder = DirBuilder::new();
-    let path = root_dir.clone() + &target;
-    match builder.recursive(true).create(path.as_str())
+    input_type.to_lowercase();
+    match input_type.as_str()
     {
-        Ok(_) => {}
-        Err(err) => {
-            eprintln!("{:?}", err);
-            exit(1);
-        }
-    }
-}
-
-pub fn new_files(path:String, mut file_names:Vec<String>)
-{
-    let mut file_name = file_names.pop();
-    let mut full_path = path.clone() + &file_name.clone().unwrap();
-    while file_name != None
-    {
-        match File::create(full_path.as_str())
-        {
-            Ok(_) => {
-                file_name = file_names.pop();
-                if file_name != None
+        "file" => {
+            for file in names
+            {
+                let full_path = root_dir.clone() + &file.clone();
+                match File::create(full_path.as_str())
                 {
-                    full_path = path.clone() + &file_name.clone().unwrap();
+                    Ok(_) => {}
+                    Err(err) => {
+                        eprintln!("{:?}", err);
+                        exit(1);
+                    }
                 }
             }
-            Err(err) => {
-                eprintln!("{:?}", err);
-                exit(1);
+        }
+        "dir" => {
+            for dir in names
+            {
+                let mut builder = DirBuilder::new();
+                let full_path = root_dir.clone() + &dir.clone();
+                match builder.recursive(true).create(full_path.as_str())
+                {
+                    Ok(_) => {}
+                    Err(err) => {
+                        eprintln!("{:?}", err);
+                        exit(1);
+                    }
+                }
             }
+        }
+        _ => {
+            eprintln!("Error: Invalid selection. Please select either dir or file.");
         }
     }
 }
