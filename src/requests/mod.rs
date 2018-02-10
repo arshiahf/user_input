@@ -59,6 +59,30 @@ pub fn request_input_to_vec<T>(message: &str, in_vec: &mut Vec<T>) where T: From
     parse_string_to_vec(in_str, in_vec);
 }
 
+// Requests command line input and places it into a provided tuple
+/* Uses whitespace splitting for variable creation, making it so no variable may be more than
+ one word long */
+pub fn request_input_to_tuple<T>(message: &str, in_tup: &mut (), size:i32) where T: FromStr
+{
+    let flushable = String::from(message);
+    flush_out(flushable);
+    let i = stdin();
+    let mut in_str:String = String::new();
+    match i.read_line(&mut in_str)
+    {
+        Ok(_) => {
+            in_str.pop();
+            in_str.pop();
+        }
+        Err(err) => {
+            eprintln!("Error: {:?}", err);
+            exit(1);
+        }
+    }
+
+    parse_string_to_tuple(in_str, in_tup, size);
+}
+
 // Programmer-side function to create a series of files or directories from an input String Vector
 // Note: Single directories or files may be made using a one-item Vector
 pub fn new_directories_files(root_dir:String, names:Vec<String>, input_type:String)
