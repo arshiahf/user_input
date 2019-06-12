@@ -17,6 +17,7 @@ pub(crate) fn parse_string_to_vec<T>(input:String, container:&mut Vec<T>) where 
 }
 
 // Parses string into tuple
+/*
 pub(crate) fn parse_string_to_tuple<T>(input:String, container:&mut (), size:i32) where T: FromStr
 {
     let mut iter = input.split_whitespace();
@@ -31,3 +32,4 @@ pub(crate) fn parse_string_to_tuple<T>(input:String, container:&mut (), size:i32
         spot = iter.next();
     }
 }
+*/

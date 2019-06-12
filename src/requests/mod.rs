@@ -1,6 +1,6 @@
 // Collection of functions that allow the programmer to request user input
 
-use interpret::parse_string_to_vec;
+use interpret::{parse_string_to_vec};
 use std::str::FromStr;
 use std::io::{stdin, stdout};
 use std::io::{BufWriter, Write};
@@ -62,6 +62,7 @@ pub fn request_input_to_vec<T>(message: &str, in_vec: &mut Vec<T>) where T: From
 // Requests command line input and places it into a provided tuple
 /* Uses whitespace splitting for variable creation, making it so no variable may be more than
  one word long */
+ /*
 pub fn request_input_to_tuple<T>(message: &str, in_tup: &mut (), size:i32) where T: FromStr
 {
     let flushable = String::from(message);
@@ -82,6 +83,7 @@ pub fn request_input_to_tuple<T>(message: &str, in_tup: &mut (), size:i32) where
 
     parse_string_to_tuple(in_str, in_tup, size);
 }
+*/
 
 // Programmer-side function to create a series of files or directories from an input String Vector
 // Note: Single directories or files may be made using a one-item Vector
@@ -108,7 +110,7 @@ pub fn new_directories_files(root_dir:String, names:Vec<String>, input_type:Stri
             for dir in names
             {
                 let mut builder = DirBuilder::new();
-                let full_path = root_dir.clone() + &dir.clone();
+                let full_path = root_dir.clone() + "/" + &dir.clone();
                 match builder.recursive(true).create(full_path.as_str())
                 {
                     Ok(_) => {}
